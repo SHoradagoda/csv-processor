@@ -2,15 +2,6 @@ cmake_minimum_required(VERSION 2.8 FATAL_ERROR)
 
 project(gtest-demo)
 
-enable_language(C)
-enable_language(CXX)
-
-if(CMAKE_CXX_COMPILER_ID MATCHES GNU)
-    set(CMAKE_CXX_FLAGS         "-Wall -Wno-unknown-pragmas -Wno-sign-compare -Woverloaded-virtual -Wwrite-strings -Wno-unused")
-    set(CMAKE_CXX_FLAGS_DEBUG   "-O0 -g3")
-    set(CMAKE_CXX_FLAGS_RELEASE "-O3")
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fprofile-arcs -ftest-coverage")
-endif()
 
 include_directories(
     ${PROJECT_SOURCE_DIR}/src
@@ -21,7 +12,7 @@ add_library(
     src/example.cpp
     )
 
-set(GOOGLETEST_ROOT external/googletest/googletest CACHE STRING "Google Test source root")
+set(GOOGLETEST_ROOT external/googletest/googletest)
 
 include_directories(
     ${PROJECT_SOURCE_DIR}/${GOOGLETEST_ROOT}
@@ -39,6 +30,8 @@ endforeach()
 
 add_library(googletest ${GOOGLETEST_SOURCES})
 
+add_executable(csv_processor csv_processor.cpp)
+
 add_executable(
     unit_tests
     test/main.cpp
@@ -52,7 +45,7 @@ target_link_libraries(
     unit_tests
     googletest
     example
-    pthread
+#    pthread
     )
 
 include(CTest)
