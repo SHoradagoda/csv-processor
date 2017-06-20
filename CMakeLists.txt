@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 2.8 FATAL_ERROR)
 
-project(gtest-demo)
+project(csv_processor)
 
 enable_language(C)
 enable_language(CXX)
@@ -14,11 +14,6 @@ endif()
 
 include_directories(
     ${PROJECT_SOURCE_DIR}/src
-    )
-
-add_library(
-    example
-    src/example.cpp
     )
 
 add_library(
@@ -50,24 +45,8 @@ add_executable(
         test/csv_processor_strip_columns.cpp
 )
 
-add_executable(
-    example_tests
-    test/main.cpp
-    test/example_add.cpp
-    test/example_subtract.cpp
-)
-
 
 add_dependencies(csv_proc_tests googletest)
-
-add_dependencies(example_tests googletest)
-
-target_link_libraries(
-    example_tests
-    googletest
-    example
-    pthread
-    )
 
 target_link_libraries(
     csv_proc_tests
