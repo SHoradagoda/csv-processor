@@ -1,14 +1,23 @@
 #include "gtest/gtest.h"
-#include "example.h"
 #include <iostream>
 #include "csv_processor.h"
 
+#include <limits.h>
+#include <stdlib.h>
+
 using namespace std;
 
-TEST(example, divide)
+TEST(csv_proc, no_file)
 {
-    double res;
-    res = subtract_numbers(1.0, 2.0);
-    ASSERT_NEAR(res, -1.0, 1.0e-11);
+    int stripped = strip_columns("file");
+    ASSERT_EQ ( 1, stripped );
 }
+
+TEST(csv_proc, strip)
+{
+    char *full_path = realpath("../test/resources/simple.csv", NULL);
+    int stripped = strip_columns(full_path);
+    ASSERT_EQ ( 1, stripped );
+}
+
 

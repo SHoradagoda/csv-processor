@@ -3,7 +3,22 @@
 //
 
 #include "csv_processor.h"
+#include <fstream>
+#include <iostream>
+#include <string>
+#include <sys/stat.h>
 
-int strip_column ( string file_name ) {
-    return 1;
+using namespace std;
+
+int strip_columns ( string file_name ) {
+    // Read file
+    ifstream infile( file_name );
+    struct stat buffer;
+    cout  << "file exists = " << (stat (file_name.c_str(), &buffer) == 0)  << endl;
+
+    string nextLine;
+    while ( infile >> nextLine ) {
+        cout << nextLine ;
+    }
+    return 3;
 }
