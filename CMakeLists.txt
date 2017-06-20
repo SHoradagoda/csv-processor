@@ -21,6 +21,11 @@ add_library(
     src/example.cpp
     )
 
+add_library(
+        csv_proc
+        src/csv_processor.cpp
+)
+
 set(GOOGLETEST_ROOT external/googletest/googletest CACHE STRING "Google Test source root")
 
 include_directories(
@@ -40,22 +45,38 @@ endforeach()
 add_library(googletest ${GOOGLETEST_SOURCES})
 
 add_executable(
-    unit_tests
+    csv_proc_tests
+    test/main.cpp
+        test/csv_processor_strip_columns.cpp
+)
+
+add_executable(
+    example_tests
     test/main.cpp
     test/example_add.cpp
     test/example_subtract.cpp
-    )
+)
 
-add_dependencies(unit_tests googletest)
+
+add_dependencies(csv_proc_tests googletest)
+
+add_dependencies(example_tests googletest)
 
 target_link_libraries(
-    unit_tests
+    example_tests
     googletest
     example
     pthread
     )
 
+target_link_libraries(
+    csv_proc_tests
+    googletest
+    csv_proc
+    pthread
+)
+
 include(CTest)
 enable_testing()
 
-add_test(unit ${PROJECT_BINARY_DIR}/unit_tests)
+add_test(unit ${PROJECT_BINARY_DIR}/csv_proc_test)
