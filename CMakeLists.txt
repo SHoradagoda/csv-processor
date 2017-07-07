@@ -19,7 +19,7 @@ include_directories(
 add_library(
         csv_proc
         src/csv_processor.cpp
-)
+        src/empty_column_finder.cpp src/empty_column_finder.h src/utils.cpp src/utils.h src/file_stripper.cpp src/file_stripper.h)
 
 set(GOOGLETEST_ROOT external/googletest/googletest CACHE STRING "Google Test source root")
 
@@ -43,7 +43,7 @@ add_executable(
     csv_proc_tests
     test/main.cpp
         test/csv_processor_strip_columns.cpp
-)
+        test/empty_column_finder_test.cpp test/file_stripper_test.cpp)
 
 
 add_dependencies(csv_proc_tests googletest)
